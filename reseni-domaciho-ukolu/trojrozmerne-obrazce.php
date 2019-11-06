@@ -62,6 +62,7 @@ class Koule implements TrojrozmernyObrazec
 
     public function ziskejObjem()
     {
+        // M_PI je konstanta v PHP, lze také použít funkci pi() - https://www.php.net/manual/en/function.pi.php
         return (4 * M_PI * ($this->r ** 3)) / 3;
     }
 
@@ -89,13 +90,21 @@ class Jehlan implements TrojrozmernyObrazec
 
     public function ziskejPovrch()
     {
-        $vs = sqrt($this->v + ($this->a ** 2) / 4);
+        // Výška stěny:
+        $x = sqrt((($this->a / 2) ** 2) + ($this->v ** 2));
 
-        return 2 * $this->a * $vs;
+        // Obsah pláště:
+        $Spl = (($this->a * $x) / 2) * 4;
+
+        // Obsah podstavy:
+        $Sp = $this->a ** 2;
+
+        return $Sp + $Spl;
     }
 }
 
 function vypisObjem(TrojrozmernyObrazec $obrazec) {
+    // Funkce get_class() vypíše název třídy daného objektu
     echo get_class($obrazec) . ' ma objem ' . $obrazec->ziskejObjem() . '<br>' . "\n";
 }
 
